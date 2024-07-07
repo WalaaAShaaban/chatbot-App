@@ -1,0 +1,10 @@
+streamlit==1.35.0
+streamlit_chat
+langchain-google-genai
+langchain>=0.0.351
+sqlalchemy
+langchain-community
+langchain_experimental
+PyPDF2
+SQLAlchemy 
+PyMySQL
