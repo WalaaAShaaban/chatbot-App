@@ -14,7 +14,7 @@ class ChainPDF():
     def load_chunk_persist_pdf(self) -> Chroma:
         loader = PyPDFLoader('input/Introduction to Machine Learning with Python.pdf')
         pages = loader.load_and_split()
-        text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=10)
+        text_splitter = CharacterTextSplitter(chunk_size=5000, chunk_overlap=500)
         chunked_documents = text_splitter.split_documents(pages)
         vectordb = Chroma.from_documents(
             documents=chunked_documents,
@@ -27,7 +27,7 @@ class ChainPDF():
 
     def create_pdf_chain(self):
         vector_db = self.load_chunk_persist_pdf()
-        chain = RetrievalQA.from_chain_type(llm=self.llm, chain_type="stuff", retriever=vector_db.as_retriever())
+        chain = RetrievalQA.from_chain_type(llm=self.llm, chain_type="stuff", retriever=vector_db.as_retriever(search_kwargs={"k": 3}))
         return chain
       
 
